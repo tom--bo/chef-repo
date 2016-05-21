@@ -1,0 +1,5 @@
+{
+    "run_list":[
+        "postgresql.opscode"
+    ]
+}

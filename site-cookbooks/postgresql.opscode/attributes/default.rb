@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-default['postgresql']['enable_pgdg_apt'] = false
+default['postgresql']['enable_pgdg_apt'] = true
 default['postgresql']['enable_pgdg_yum'] = false
 default['postgresql']['use_pgdg_packages'] = false
 
@@ -244,7 +244,7 @@ end
 
 case node['platform_family']
 when 'debian'
-  default['postgresql']['config']['listen_addresses'] = 'localhost'
+  default['postgresql']['config']['listen_addresses'] = '*'
   default['postgresql']['config']['port'] = 5432
   default['postgresql']['config']['max_connections'] = 100
   default['postgresql']['config']['shared_buffers'] = '24MB'
@@ -275,6 +275,7 @@ default['postgresql']['pg_hba'] = [
   { :type => 'local', :db => 'all', :user => 'postgres', :addr => nil, :method => 'ident' },
   { :type => 'local', :db => 'all', :user => 'all', :addr => nil, :method => 'ident' },
   { :type => 'host', :db => 'all', :user => 'all', :addr => '127.0.0.1/32', :method => 'md5' },
+  { :type => 'host', :db => 'all', :user => 'all', :addr => '0.0.0.0/0', :method => 'md5' },
   { :type => 'host', :db => 'all', :user => 'all', :addr => '::1/128', :method => 'md5' }
 ]
 

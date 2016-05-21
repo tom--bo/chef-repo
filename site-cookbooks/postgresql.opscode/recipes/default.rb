@@ -16,3 +16,21 @@
 #
 
 include_recipe "postgresql::client"
+include_recipe "postgresql::server"
+include_recipe "postgresql::config_pgtune"
+
+postgresql_connection_info = {
+    host: 'localhost',
+    port: 5432,
+    username: 'postgres',
+    password: node['database']['postgres_password'],
+}
+
+postgresql_database node['database']['name'] do
+    connection postgresql_connection_info
+    action     :create
+    template  'template0'
+    encoding  'UTF8'
+    collation 'en_US.UTF-8'
+end
+
